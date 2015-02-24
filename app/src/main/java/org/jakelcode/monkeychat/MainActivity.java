@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +17,12 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 
 public class MainActivity extends ActionBarActivity {
+    private static final String TAG = MainActivity.class.getName();
+
     @InjectView(R.id.chat_recycle_view) RecyclerView mRecyclerView;
     @InjectView(R.id.chat_text_edit) EditText mTextEdit;
     @InjectView(R.id.chat_button_send) Button mSendButton;
@@ -75,6 +79,31 @@ public class MainActivity extends ActionBarActivity {
 
         mTextEdit.requestFocus();
 
+    }
+
+    // only detect the first hashtag
+    @OnTextChanged(R.id.chat_text_edit)
+    public void renderHashtag() {
+        String msg = mTextEdit.getText().toString();
+
+        if (msg == null || msg.length() == 0) return;
+
+        int hashtagIndex = msg.indexOf("#");
+
+        // oops no hashtag
+        if (hashtagIndex == -1) return;
+
+        String hashtagSubstring = msg.substring(hashtagIndex);
+        Log.d(TAG, hashtagSubstring);
+
+        int finishHashtagIndex = msg.indexOf(" ", hashtagIndex);
+
+        // almost there!!! not finishing hashtagging yet
+        if (finishHashtagIndex == -1) return;
+
+        String hashtagString = msg.substring(hashtagIndex, finishHashtagIndex);
+
+        Log.d(TAG, "Succeed : " + hashtagString);
     }
 
     @Override
