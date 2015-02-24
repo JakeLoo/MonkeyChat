@@ -18,11 +18,13 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/chat_height"
         android:orientation="horizontal"
-        android:layout_gravity="bottom">
+        android:layout_gravity="bottom"
+        android:weightSum="5">
 
         <EditText
             android:id="@+id/chat_text_edit"
-            android:layout_width="wrap_content"
+            android:layout_weight="4"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:singleLine="true"
             android:inputType="text"
@@ -30,7 +32,8 @@
 
         <Button
             android:id="@+id/chat_button_send"
-            android:layout_width="wrap_content"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Send"
             android:layout_gravity="end"/>
