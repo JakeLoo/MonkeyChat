@@ -1,14 +1,14 @@
 package org.jakelcode.monkeychat;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Description...
@@ -17,8 +17,13 @@ import butterknife.ButterKnife;
  */
 public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
     private List<ChatModel> mChatModel;
+    private Context mContext;
 
-    public ChatAdapter(List<ChatModel> model) {
+    FrameLayout.LayoutParams rightLayoutParams =
+            new FrameLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, FrameLayout.LayoutParams.MATCH_PARENT, Gravity.END);
+
+    public ChatAdapter(Context c, List<ChatModel> model) {
+        mContext = c;
         mChatModel = model;
     }
 
@@ -40,6 +45,12 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
     @Override
     public void onBindViewHolder(ChatHolder chatHolder, int i) {
         ChatModel model = mChatModel.get(i);
+
+        if (mChatModel.get(i).getUserId() == 0) { // User itself
+            chatHolder.mChatView.setBackgroundColor(mContext.getResources().getColor(R.color.material_deep_teal_500));
+
+            chatHolder.mChatView.setLayoutParams(rightLayoutParams);
+        }
 
         chatHolder.mChatView.setText(model.getMessage());
     }

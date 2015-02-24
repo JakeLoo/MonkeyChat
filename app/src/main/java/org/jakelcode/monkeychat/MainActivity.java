@@ -38,13 +38,14 @@ public class MainActivity extends ActionBarActivity {
         ButterKnife.inject(this);
 
         List<ChatModel> datas = new ArrayList<>();
-        mAdapter = new ChatAdapter(datas);
+        mAdapter = new ChatAdapter(getApplicationContext(), datas);
 
         setupRecyclerView(mAdapter);
     }
 
     private void setupRecyclerView(ChatAdapter adapter) {
-        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplication());
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(adapter);
@@ -62,12 +63,18 @@ public class MainActivity extends ActionBarActivity {
     public void sendMessage() {
         String chatMessage = mTextEdit.getText().toString();
 
-        ChatModel model = new ChatModel(USER_ID, chatMessage);
-
+        if (chatMessage.length() == 0) return;
         mTextEdit.setText("");
-        mTextEdit.requestFocus();
+
+        ChatModel model = new ChatModel(USER_ID, chatMessage);
+        ChatModel mockModel = new ChatModel(OTHER_USER_ID, "Mock response; Lorem ipsum.");
+
 
         mAdapter.addChat(model);
+        mAdapter.addChat(mockModel);
+
+        mTextEdit.requestFocus();
+
     }
 
     @Override
