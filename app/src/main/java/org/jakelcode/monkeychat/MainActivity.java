@@ -75,6 +75,7 @@ public class MainActivity extends ActionBarActivity {
 
         if (chatMessage.length() == 0) return;
         mTextEdit.setText("");
+        mPreviewImage.setVisibility(View.INVISIBLE);
 
         ChatModel model = new ChatModel(USER_ID, chatMessage);
         ChatModel mockModel = new ChatModel(OTHER_USER_ID, "Mock response; Lorem ipsum.");
@@ -105,12 +106,14 @@ public class MainActivity extends ActionBarActivity {
         int finishHashtagIndex = msg.indexOf(" ", hashtagIndex);
 
         // almost there!!! not finishing hashtagging yet
-        if (finishHashtagIndex == -1) {
-            finishHashtagIndex = msg.substring(hashtagIndex).length();
-            Log.d(TAG, msg.substring(hashtagIndex) + " ;; " + finishHashtagIndex + " ;; " +hashtagIndex);
-        }
+        String hashtagString;
 
-        String hashtagString = msg.substring(hashtagIndex, hashtagIndex + finishHashtagIndex);
+        if (finishHashtagIndex == -1) { // on typing hashtag
+            finishHashtagIndex = msg.substring(hashtagIndex).length();
+            hashtagString = msg.substring(hashtagIndex, hashtagIndex + finishHashtagIndex);
+        } else { // after indexing the ' ',
+            hashtagString = msg.substring(hashtagIndex, finishHashtagIndex);
+        }
 
         Log.d(TAG, "Succeed : " + hashtagString);
 

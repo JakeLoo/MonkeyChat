@@ -1,6 +1,7 @@
 package org.jakelcode.monkeychat;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -50,6 +51,8 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
             chatHolder.mChatView.setBackgroundColor(mContext.getResources().getColor(R.color.material_deep_teal_500));
 
             chatHolder.mChatView.setLayoutParams(rightLayoutParams);
+        } else {
+            chatHolder.mChatView.setBackgroundColor(Color.parseColor("#BBDEFB"));
         }
 
         chatHolder.mChatView.setText(model.getMessage());
