@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,11 +27,15 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.chat_recycle_view) RecyclerView mRecyclerView;
     @InjectView(R.id.chat_text_edit) EditText mTextEdit;
     @InjectView(R.id.chat_button_send) Button mSendButton;
+    @InjectView(R.id.chat_preview_hashtag_image) ImageView mPreviewImage;
 
     private ChatAdapter mAdapter;
 
     private final static int USER_ID = 0;
     private final static int OTHER_USER_ID = 1;
+    private String renderedHashtag;
+
+    private ApiAccess mApiAccess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,7 @@ public class MainActivity extends ActionBarActivity {
         List<ChatModel> datas = new ArrayList<>();
         mAdapter = new ChatAdapter(getApplicationContext(), datas);
 
+        mApiAccess = new ApiAccess(getApplicationContext());
         setupRecyclerView(mAdapter);
     }
 
@@ -83,7 +89,7 @@ public class MainActivity extends ActionBarActivity {
 
     // only detect the first hashtag
     @OnTextChanged(R.id.chat_text_edit)
-    public void renderHashtag() {
+    public void onChatMessageChange() {
         String msg = mTextEdit.getText().toString();
 
         if (msg == null || msg.length() == 0) return;
@@ -99,11 +105,24 @@ public class MainActivity extends ActionBarActivity {
         int finishHashtagIndex = msg.indexOf(" ", hashtagIndex);
 
         // almost there!!! not finishing hashtagging yet
-        if (finishHashtagIndex == -1) return;
+        if (finishHashtagIndex == -1) {
+            finishHashtagIndex = msg.substring(hashtagIndex).length();
+            Log.d(TAG, msg.substring(hashtagIndex) + " ;; " + finishHashtagIndex + " ;; " +hashtagIndex);
+        }
 
-        String hashtagString = msg.substring(hashtagIndex, finishHashtagIndex);
+        String hashtagString = msg.substring(hashtagIndex, hashtagIndex + finishHashtagIndex);
 
         Log.d(TAG, "Succeed : " + hashtagString);
+
+        renderHashtag(hashtagString, mPreviewImage);
+    }
+
+    private void renderHashtag(String hashtag, ImageView iv) {
+        if (hashtag.equals(renderedHashtag)) return;
+
+        mApiAccess.renderHashtag(hashtag, iv, !hashtag.equals("#boom"));
+
+        renderedHashtag = hashtag;
     }
 
     @Override
