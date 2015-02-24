@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -14,6 +15,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -22,6 +24,9 @@ public class MainActivity extends ActionBarActivity {
     @InjectView(R.id.chat_button_send) Button mSendButton;
 
     private ChatAdapter mAdapter;
+
+    private final static int USER_ID = 0;
+    private final static int OTHER_USER_ID = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,19 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+
+    @OnClick(R.id.chat_button_send)
+    public void sendMessage() {
+        String chatMessage = mTextEdit.getText().toString();
+
+        ChatModel model = new ChatModel(USER_ID, chatMessage);
+
+        mTextEdit.setText("");
+        mTextEdit.requestFocus();
+
+        mAdapter.addChat(model);
     }
 
     @Override

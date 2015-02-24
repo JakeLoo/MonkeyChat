@@ -43,4 +43,11 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
 
         chatHolder.mChatView.setText(model.getMessage());
     }
+
+    public void addChat(ChatModel m) {
+        mChatModel.add(0, m);
+
+        //Anim
+        notifyItemInserted(0);
+    }
 }

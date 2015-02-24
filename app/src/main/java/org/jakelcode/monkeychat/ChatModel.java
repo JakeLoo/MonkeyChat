@@ -6,16 +6,19 @@ package org.jakelcode.monkeychat;
  * @author Pin Khe "Jake" Loo (24 February, 2015)
  */
 public class ChatModel {
-    private int id;
+    private int mUserId;
+    private String mTextMessage;
 
-    private String user;
-    private String message;
+    public ChatModel(int uid, String msg) {
+        mUserId = uid;
+        mTextMessage = msg;
+    }
 
-    public ChatModel() {
-
+    public int getUserId() {
+        return mUserId;
     }
 
     public String getMessage() {
-        return message;
+        return mTextMessage;
     }
 }
