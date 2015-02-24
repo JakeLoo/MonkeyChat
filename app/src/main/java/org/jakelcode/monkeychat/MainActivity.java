@@ -57,6 +57,7 @@ public class MainActivity extends ActionBarActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        mLayoutManager.setReverseLayout(true);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(adapter);
     }
