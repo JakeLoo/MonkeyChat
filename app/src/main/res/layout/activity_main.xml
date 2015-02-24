@@ -17,19 +17,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/chat_height"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_gravity="bottom">
 
         <EditText
             android:id="@+id/chat_text_edit"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:singleLine="true"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:hint="Text here.."/>
 
         <Button
             android:id="@+id/chat_button_send"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:text="Send"
+            android:layout_gravity="end"/>
 
     </LinearLayout>
 </FrameLayout>

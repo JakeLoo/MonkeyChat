@@ -6,4 +6,7 @@ package org.jakelcode.monkeychat;
  * @author Pin Khe "Jake" Loo (24 February, 2015)
  */
 public class ApiAccess {
+
+    private final int USER_ID = 1;
+
 }
