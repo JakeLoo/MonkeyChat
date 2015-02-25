@@ -12,8 +12,6 @@ import android.widget.FrameLayout;
 import java.util.List;
 
 /**
- * Description...
- *
  * @author Pin Khe "Jake" Loo (24 February, 2015)
  */
 public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
@@ -50,9 +48,10 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatHolder> {
         if (mChatModel.get(i).getUserId() == 0) { // User itself
             chatHolder.mChatView.setBackgroundColor(mContext.getResources().getColor(R.color.material_deep_teal_500));
 
+            // Set the gravity to right.
             chatHolder.mChatView.setLayoutParams(rightLayoutParams);
-        } else {
-            chatHolder.mChatView.setBackgroundColor(Color.parseColor("#BBDEFB"));
+        } else { // The another guy
+            chatHolder.mChatView.setBackgroundColor(Color.parseColor("#BBDEFB")); // Light blue background.
         }
 
         chatHolder.mChatView.setText(model.getMessage());

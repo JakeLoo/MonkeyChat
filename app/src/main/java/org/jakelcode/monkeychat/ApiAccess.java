@@ -10,8 +10,6 @@ import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 /**
- * Description...
- *
  * @author Pin Khe "Jake" Loo (24 February, 2015)
  */
 public class ApiAccess {
@@ -26,24 +24,28 @@ public class ApiAccess {
 
     private Context mContext;
 
-    public ApiAccess(Context c ) {
-        // since it's a fixed user.
+    public ApiAccess(Context c) {
         mContext = c;
     }
 
     public void renderHashtag(String hashtag, final ImageView target, boolean forceError) {
+        //Set the Visible after fetching data.
+        if (target.getVisibility() != View.INVISIBLE)
+            target.setVisibility(View.INVISIBLE);
+
         //hashtag is not necessary now...
         Picasso.with(mContext).load(forceError ? Uri.parse(ERROR_END_POINT) : Uri.parse(END_POINT)).fit()
                 .into(target, new Callback() {
             @Override
             public void onSuccess() {
-                if (target.getVisibility() != View.VISIBLE) target.setVisibility(View.VISIBLE);
+                if (target.getVisibility() != View.VISIBLE)
+                    target.setVisibility(View.VISIBLE);
+
                 Log.d(TAG, "Succeed.");
             }
 
             @Override
             public void onError() {
-                if (target.getVisibility() != View.INVISIBLE) target.setVisibility(View.INVISIBLE);
                 Log.d(TAG, "Error");
             }
         });

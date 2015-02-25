@@ -57,7 +57,8 @@ public class MainActivity extends ActionBarActivity {
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
 
         mLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mLayoutManager.setReverseLayout(true);
+        mLayoutManager.setReverseLayout(true);        // It goes from bottom to top.
+
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(adapter);
     }
@@ -80,7 +81,6 @@ public class MainActivity extends ActionBarActivity {
 
         ChatModel model = new ChatModel(USER_ID, chatMessage);
         ChatModel mockModel = new ChatModel(OTHER_USER_ID, "Mock response; Lorem ipsum.");
-
 
         mAdapter.addChat(model);
         mAdapter.addChat(mockModel);
